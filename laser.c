@@ -147,3 +147,11 @@ void free_memory(void)
     free(sequence);
     free(matrix);
 }
+
+double walltime(void)
+{
+  static struct timeval t;
+  gettimeofday(&t, NULL);
+
+  return t.tv_sec + 1e-6 * t.tv_usec;
+}

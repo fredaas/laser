@@ -5,6 +5,8 @@ extern int *matrix;
 extern int N;
 extern int M;
 
+double start, end;
+
 void generate_matrix(void)
 {
     matrix = (int *) calloc(N * N, sizeof(int));
@@ -20,6 +22,8 @@ void generate_matrix(void)
 
 int main(int argc, char **argv)
 {
+    setbuf(stdout, NULL);
+
     char target_in[256];
     char target_out[256];
 
@@ -37,13 +41,21 @@ int main(int argc, char **argv)
     FILE *in = fopen(target_in, "r");
     FILE *out = fopen(target_out, "w");
 
-    printf("Reading sequences...\n");
+    printf("Reading sequences... ");
 
+    start = walltime();
     read_sequences(in);
+    end = walltime();
+
+    printf("Done! Time: %.2lf\n", end - start);
 
     printf("Generating matrix...\n");
 
+    start = walltime();
     generate_matrix();
+    end = walltime();
+
+    printf("Done! Time: %.2lf\n", end - start);
 
     printf("Wrinting result...\n");
 
